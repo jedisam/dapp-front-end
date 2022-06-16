@@ -15,7 +15,7 @@ import {
   Button,
 } from 'reactstrap';
 
-function ExamplesNavbar() {
+function NavB() {
   const [navbarColor, setNavbarColor] = React.useState('navbar-transparent');
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
@@ -131,4 +131,4 @@ function ExamplesNavbar() {
   );
 }
 
-export default ExamplesNavbar;
+export default NavB;

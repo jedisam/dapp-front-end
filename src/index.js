@@ -1,26 +1,29 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import './assets/scss/style.scss';
+import { BrowserRouter, Route, Navigate, Routes } from 'react-router-dom';
+
+// styles
 import 'bootstrap/scss/bootstrap.scss';
 import 'assets/scss/paper-kit.scss?v=1.3.0';
 import 'assets/demo/demo.css?v=1.3.0';
-import App from './App';
+// pages
+import LandingPage from 'views/LandingPage.js';
+// import RegisterPage from 'views/RegisterPage.js';
 
-// import reportWebVitals from './reportWebVitals.js';
-import { HashRouter } from 'react-router-dom';
-import Loader from './layouts/loader/Loader';
+// others
 
 ReactDOM.render(
-  <Suspense fallback={<Loader />}>
-    <HashRouter>
-      <App />
-    </HashRouter>
-  </Suspense>,
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      {/* <Route path="/admin" element={<AdminPage />} /> */}
 
+      {/* <Route
+        path="/register-page"
+        render={(props) => <RegisterPage {...props} />}
+      /> */}
+      {/* <Navigate to="/" /> */}
+    </Routes>
+  </BrowserRouter>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();

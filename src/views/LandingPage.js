@@ -18,7 +18,7 @@ import {
 } from 'reactstrap';
 
 // core components
-import ExamplesNavbar from 'components/Navbars/ExamplesNavbar.js';
+import NavBar from 'components/Navbars/NavBar.js';
 import LandingPageHeader from 'components/Headers/LandingPageHeader.js';
 import DemoFooter from 'components/Footers/DemoFooter.js';
 
@@ -32,7 +32,7 @@ function LandingPage() {
   });
   return (
     <>
-      <ExamplesNavbar />
+      <NavBar />
       <LandingPageHeader />
     </>
   );
