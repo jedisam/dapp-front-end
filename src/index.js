@@ -10,7 +10,7 @@ import 'assets/demo/demo.css?v=1.3.0';
 import LandingPage from 'views/LandingPage.js';
 import AdminView from 'views/AdminView';
 import Typography from 'views/Typography.js';
-import UserProfile from 'views/UserProfile.js';
+import TraineeView from 'views/TraineeView';
 
 // others
 
@@ -19,15 +19,15 @@ ReactDOM.render(
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/admin" element={<AdminView />} />
+      <Route path="/trainee" element={<TraineeView />} />
       <Route path="/typo" element={<Typography />} />
-      <Route path="/user" element={<UserProfile />} />
 
       {/* <Route
         path="/register-page"
         render={(props) => <RegisterPage {...props} />}
       /> */}
-      {/* <Navigate to="/" /> */}
     </Routes>
+    {/* <Navigate to="/" /> */}
   </BrowserRouter>,
   document.getElementById('root')
 );

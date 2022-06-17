@@ -20,9 +20,10 @@ function Tables() {
           <Col md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Trainee List</CardTitle>
+                <CardTitle tag="h4">Tenx Admin Dashboard</CardTitle>
               </CardHeader>
               <CardBody>
+                <CardTitle tag="h4"> Trainee List </CardTitle>
                 <Table className="tablesorter" responsive>
                   <thead className="text-primary">
                     <tr>

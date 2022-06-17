@@ -15,7 +15,7 @@ import {
   Col,
 } from 'reactstrap';
 
-function UserProfile() {
+function Trainee() {
   return (
     <>
       <div className="content">
@@ -23,38 +23,20 @@ function UserProfile() {
           <Col md="8">
             <Card>
               <CardHeader>
-                <h5 className="title">Edit Profile</h5>
+                <h5 className="title">Tenx System</h5>
               </CardHeader>
               <CardBody>
                 <Form>
                   <Row>
                     <Col className="pr-md-1" md="5">
                       <FormGroup>
-                        <label>Company (disabled)</label>
+                        <label>Role (disabled)</label>
                         <Input
-                          defaultValue="Creative Code Inc."
+                          defaultValue="Tenx Trainee"
                           disabled
-                          placeholder="Company"
+                          placeholder="Tenx Trainee"
                           type="text"
                         />
-                      </FormGroup>
-                    </Col>
-                    <Col className="px-md-1" md="3">
-                      <FormGroup>
-                        <label>Username</label>
-                        <Input
-                          defaultValue="michael23"
-                          placeholder="Username"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-md-1" md="4">
-                      <FormGroup>
-                        <label htmlFor="exampleInputEmail1">
-                          Email address
-                        </label>
-                        <Input placeholder="mike@email.com" type="email" />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -63,7 +45,7 @@ function UserProfile() {
                       <FormGroup>
                         <label>First Name</label>
                         <Input
-                          defaultValue="Mike"
+                          defaultValue="Abe"
                           placeholder="Company"
                           type="text"
                         />
@@ -73,7 +55,7 @@ function UserProfile() {
                       <FormGroup>
                         <label>Last Name</label>
                         <Input
-                          defaultValue="Andrew"
+                          defaultValue="Kebe"
                           placeholder="Last Name"
                           type="text"
                         />
@@ -83,9 +65,9 @@ function UserProfile() {
                   <Row>
                     <Col md="12">
                       <FormGroup>
-                        <label>Address</label>
+                        <label>Public Address</label>
                         <Input
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                          defaultValue="0x390f0f9fk930kf39k3mfe9"
                           placeholder="Home Address"
                           type="text"
                         />
@@ -95,42 +77,23 @@ function UserProfile() {
                   <Row>
                     <Col className="pr-md-1" md="4">
                       <FormGroup>
-                        <label>City</label>
+                        <label>Private Key(to be changed)</label>
                         <Input
-                          defaultValue="Mike"
-                          placeholder="City"
-                          type="text"
+                          defaultValue="******************"
+                          placeholder="Private Key"
+                          type="password"
                         />
-                      </FormGroup>
-                    </Col>
-                    <Col className="px-md-1" md="4">
-                      <FormGroup>
-                        <label>Country</label>
-                        <Input
-                          defaultValue="Andrew"
-                          placeholder="Country"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-md-1" md="4">
-                      <FormGroup>
-                        <label>Postal Code</label>
-                        <Input placeholder="ZIP Code" type="number" />
                       </FormGroup>
                     </Col>
                   </Row>
                   <Row>
-                    <Col md="8">
+                    <Col className="pr-md-1" md="4">
                       <FormGroup>
-                        <label>About Me</label>
+                        <label>Asset-ID</label>
                         <Input
-                          cols="80"
-                          defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                            that two seat Lambo."
-                          placeholder="Here can be your description"
-                          rows="4"
-                          type="textarea"
+                          defaultValue="8594322"
+                          placeholder="Asset-ID"
+                          type="text"
                         />
                       </FormGroup>
                     </Col>
@@ -139,7 +102,7 @@ function UserProfile() {
               </CardBody>
               <CardFooter>
                 <Button className="btn-fill" color="primary" type="submit">
-                  Save
+                  Opt-in
                 </Button>
               </CardFooter>
             </Card>
@@ -157,16 +120,15 @@ function UserProfile() {
                     <img
                       alt="..."
                       className="avatar"
-                      src={require('assets/img/emilyz.jpg').default}
+                      src={require('assets/img/emilyz.png').default}
                     />
-                    <h5 className="title">Mike Andrew</h5>
+                    <h5 className="title">Yididiya Samuel</h5>
                   </a>
-                  <p className="description">Ceo/Co-Founder</p>
+                  <p className="description">Trainee</p>
                 </div>
+                <div>Bio</div>
                 <div className="card-description">
-                  Do not be scared of the truth because we need to restart the
-                  human foundation in truth And I love you like Kanye loves
-                  Kanye I love Rick Owens’ bed design but the back is...
+                  A journey of a thousand miles begins with a single step.
                 </div>
               </CardBody>
               <CardFooter>
@@ -186,8 +148,23 @@ function UserProfile() {
           </Col>
         </Row>
       </div>
+      <Card className="card-user">
+        <CardHeader>
+          <h5 className="title">Trainee's Profile</h5>
+        </CardHeader>
+        <CardBody>
+          <Form>
+            <Row>
+              <Col className="pr-md-1" md="5">
+                <h5>My certificate </h5>{' '}
+                <p>Your certificate is not ready yet!</p>
+              </Col>
+            </Row>
+          </Form>
+        </CardBody>
+      </Card>
     </>
   );
 }
 
-export default UserProfile;
+export default Trainee;

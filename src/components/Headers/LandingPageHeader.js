@@ -43,8 +43,9 @@ function LandingPageHeader() {
               href="http://localhost:3000/admin"
               className="btn-round mr-1"
               color="neutral"
-              target="_blank"
+              // target="_blank"
               outline
+              style={{ margin: '1rem' }}
             >
               Admin
             </Button>
@@ -54,6 +55,7 @@ function LandingPageHeader() {
               type="button"
               outline
               href="/trainee"
+              style={{ margin: '1rem' }}
             >
               Trainee
             </Button>
