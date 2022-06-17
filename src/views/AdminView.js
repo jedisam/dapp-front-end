@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // reactstrap components
 import {
@@ -13,6 +13,41 @@ import {
 } from 'reactstrap';
 
 function Tables() {
+  const [trainees, setTrainees] = useState([]);
+
+  // Get all trainees from 'http://localhost:5000/api/trainees' and display them in a table
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch('http://localhost:8000/api/v1/trainees');
+      const data = await response.json();
+      setTrainees(data.data.trainees);
+    }
+    fetchData();
+  }, []);
+
+  // a component to loop throught the trainees list and display them in a table
+  const TraineeTable = ({ trainees }) => {
+    return trainees.map((trainee) => {
+      return (
+        <tr key={trainee._id}>
+          <td>{trainee.name}</td>
+          <td>{trainee.email}</td>
+          <td>{trainee.country}</td>
+          <td>{trainee.status}</td>
+          {trainee.status == 'pass' ? (
+            <td className="text-center">
+              <Button variant="primary" className="btn-primary">
+                Mint
+              </Button>
+            </td>
+          ) : (
+            <td className="text-center">Mint</td>
+          )}
+        </tr>
+      );
+    });
+  };
+
   return (
     <>
       <div className="content">
@@ -30,80 +65,12 @@ function Tables() {
                       <th>Trainee Name</th>
                       <th>Country</th>
                       <th>City</th>
-                      <th className="text-center">Status</th>
+                      <th className="text-right">Status</th>
                       <th className="text-center"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Dakota Rice</td>
-                      <td>Niger</td>
-                      <td>Oud-Turnhout</td>
-                      <td className="text-center">Pass</td>
-                      <td className="text-center">
-                        <Button variant="primary" className="btn-primary">
-                          Mint
-                        </Button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Amanu Neftalem</td>
-                      <td>Ethiopia</td>
-                      <td>Addis Ababa</td>
-                      <td className="text-center">Pass</td>
-                      <td className="text-center">
-                        <Button variant="primary" className="btn-primary">
-                          Mint
-                        </Button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Sage Rodriguez</td>
-                      <td>Kenya</td>
-                      <td>Nairobi</td>
-                      <td className="text-center">Pass</td>
-                      <td className="text-center">
-                        <Button variant="primary" className="btn-primary">
-                          Mint
-                        </Button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Philip Chaney</td>
-                      <td>Sudan</td>
-                      <td>Khartoum</td>
-                      <td className="text-center">Fail</td>
-                      <td className="text-center">Mint</td>
-                    </tr>
-                    <tr>
-                      <td>Doris Greene</td>
-                      <td>Malawi</td>
-                      <td>Feldkirchen in Kärnten</td>
-                      <td className="text-center">Fail</td>
-                      <td className="text-center">Mint</td>
-                    </tr>
-                    <tr>
-                      <td>Mason Porter</td>
-                      <td>Chile</td>
-                      <td>Gloucester</td>
-                      <td className="text-center">Pass</td>
-                      <td className="text-center">
-                        <Button variant="primary" className="btn-primary">
-                          Mint
-                        </Button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Yohannes Abate</td>
-                      <td>Ethiopia</td>
-                      <td>Addis Ababa</td>
-                      <td className="text-center">Pass</td>
-                      <td className="text-center">
-                        <Button variant="primary" className="btn-primary">
-                          Mint
-                        </Button>
-                      </td>
-                    </tr>
+                    <TraineeTable trainees={trainees} />
                   </tbody>
                 </Table>
               </CardBody>
