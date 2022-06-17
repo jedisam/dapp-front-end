@@ -1,26 +1,9 @@
 import React from 'react';
 
-// reactstrap components
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Container,
-  Row,
-  Col,
-} from 'reactstrap';
-
 // core components
 import NavBar from 'components/Navbars/NavBar.js';
 import LandingPageHeader from 'components/Headers/LandingPageHeader.js';
-import DemoFooter from 'components/Footers/DemoFooter.js';
+// import DemoFooter from 'components/Footers/DemoFooter.js';
 
 function LandingPage() {
   document.documentElement.classList.remove('nav-open');

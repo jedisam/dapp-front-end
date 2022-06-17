@@ -12,7 +12,6 @@ import {
   NavLink,
   Nav,
   Container,
-  Button,
 } from 'reactstrap';
 
 function NavB() {

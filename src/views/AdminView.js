@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import TraineeList from '../components/TraineeList/TraineeList';
+import OptinList from '../components/OptinList/OptinList';
 
 // reactstrap components
 import {
@@ -9,45 +11,25 @@ import {
   Table,
   Row,
   Col,
-  Button,
 } from 'reactstrap';
 
 function Tables() {
   const [trainees, setTrainees] = useState([]);
+  const [optins, setOptins] = useState([]);
 
-  // Get all trainees from 'http://localhost:5000/api/trainees' and display them in a table
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch('http://localhost:8000/api/v1/trainees');
-      const data = await response.json();
+      const traineesData = await fetch('http://localhost:8000/api/v1/trainees');
+      const traineesOptinData = await fetch(
+        'http://localhost:8000/api/v1/trainees/optin'
+      );
+      const data = await traineesData.json();
+      const data1 = await traineesOptinData.json();
       setTrainees(data.data.trainees);
+      setOptins(data1.data.optins);
     }
     fetchData();
   }, []);
-
-  // a component to loop throught the trainees list and display them in a table
-  const TraineeTable = ({ trainees }) => {
-    return trainees.map((trainee) => {
-      return (
-        <tr key={trainee._id}>
-          <td>{trainee.name}</td>
-          <td>{trainee.email}</td>
-          <td>{trainee.country}</td>
-          <td>{trainee.status}</td>
-          {trainee.status == 'pass' ? (
-            <td className="text-center">
-              <Button variant="primary" className="btn-primary">
-                Mint
-              </Button>
-            </td>
-          ) : (
-            <td className="text-center">Mint</td>
-          )}
-        </tr>
-      );
-    });
-  };
-
   return (
     <>
       <div className="content">
@@ -70,7 +52,7 @@ function Tables() {
                     </tr>
                   </thead>
                   <tbody>
-                    <TraineeTable trainees={trainees} />
+                    <TraineeList trainees={trainees} />
                   </tbody>
                 </Table>
               </CardBody>
@@ -90,47 +72,13 @@ function Tables() {
                   <thead className="text-primary">
                     <tr>
                       <th>Name</th>
-                      <th>Status</th>
+                      {/* <th>Status</th> */}
+                      <th>Public Address</th>
                       <th className="text-center">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Dakota Rice</td>
-                      <td>Pass</td>
-                      <td className="text-center">
-                        <Button variant="success" className="btn-success">
-                          Accept
-                        </Button>{' '}
-                        <Button variant="danger" className="btn-danger">
-                          Decline
-                        </Button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Doris Greene</td>
-                      <td>Fail</td>
-                      <td className="text-center">
-                        <Button variant="success" className="btn-success">
-                          Accept
-                        </Button>{' '}
-                        <Button variant="danger" className="btn-danger">
-                          Decline
-                        </Button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Yohannes Abate</td>
-                      <td>Pass</td>
-                      <td className="text-center">
-                        <Button variant="success" className="btn-success">
-                          Accept
-                        </Button>{' '}
-                        <Button variant="danger" className="btn-danger">
-                          Decline
-                        </Button>
-                      </td>
-                    </tr>
+                    <OptinList traineesOptin={optins} />
                   </tbody>
                 </Table>
               </CardBody>
