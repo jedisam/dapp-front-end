@@ -43,7 +43,7 @@ function Trainee() {
                   <Row>
                     <Col className="pr-md-1" md="6">
                       <FormGroup>
-                        <label>First Name</label>
+                        <label>Full Name</label>
                         <Input
                           defaultValue="Abe"
                           placeholder="Company"
@@ -51,19 +51,21 @@ function Trainee() {
                         />
                       </FormGroup>
                     </Col>
-                    <Col className="pl-md-1" md="6">
+                  </Row>
+                  <Row>
+                    <Col className="pr-md-1" md="6">
                       <FormGroup>
-                        <label>Last Name</label>
+                        <label>Email</label>
                         <Input
-                          defaultValue="Kebe"
-                          placeholder="Last Name"
+                          defaultValue="yid@gmail.com"
+                          placeholder="email"
                           type="text"
                         />
                       </FormGroup>
                     </Col>
                   </Row>
                   <Row>
-                    <Col md="12">
+                    <Col md="6">
                       <FormGroup>
                         <label>Public Address</label>
                         <Input

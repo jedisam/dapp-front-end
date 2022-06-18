@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TraineeList from '../components/TraineeList/TraineeList';
 import OptinList from '../components/OptinList/OptinList';
+import AddTraineeModal from './Modal';
 
 // reactstrap components
 import {
@@ -11,11 +12,13 @@ import {
   Table,
   Row,
   Col,
+  Button,
 } from 'reactstrap';
 
 function Tables() {
   const [trainees, setTrainees] = useState([]);
   const [optins, setOptins] = useState([]);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -30,6 +33,7 @@ function Tables() {
     }
     fetchData();
   }, []);
+  const handleShow = () => setShow(true);
   return (
     <>
       <div className="content">
@@ -38,6 +42,14 @@ function Tables() {
             <Card>
               <CardHeader>
                 <CardTitle tag="h4">Tenx Admin Dashboard</CardTitle>
+                <Button
+                  variant="primary"
+                  onClick={handleShow}
+                  style={{ marginLeft: '70rem' }}
+                >
+                  Add Trainee
+                </Button>
+                <AddTraineeModal show={show} onHide={() => setShow(false)} />
               </CardHeader>
               <CardBody>
                 <CardTitle tag="h4"> Trainee List </CardTitle>
@@ -45,8 +57,8 @@ function Tables() {
                   <thead className="text-primary">
                     <tr>
                       <th>Trainee Name</th>
+                      <th>Email</th>
                       <th>Country</th>
-                      <th>City</th>
                       <th className="text-right">Status</th>
                       <th className="text-center"></th>
                     </tr>
