@@ -26,6 +26,18 @@ function Trainee() {
                 <h5 className="title">Tenx System</h5>
               </CardHeader>
               <CardBody>
+                {/* Add a description text */}
+                <p>
+                  Please optin the asset using the{' '}
+                  <a href="https://chrome.google.com/webstore/detail/algosigner/kmmolakhbgdlpkjkcjkebenjheonagdm">
+                    algosign
+                  </a>{' '}
+                  chrome extension once you get your asset-ID
+                </p>
+                <p>
+                  Once you optin for the asset, please fill up the form below
+                  and we will transfer your certificate
+                </p>
                 <Form>
                   <Row>
                     <Col className="pr-md-1" md="5">
@@ -44,11 +56,7 @@ function Trainee() {
                     <Col className="pr-md-1" md="6">
                       <FormGroup>
                         <label>Full Name</label>
-                        <Input
-                          defaultValue="Abe"
-                          placeholder="Company"
-                          type="text"
-                        />
+                        <Input placeholder="your-full-name" type="text" />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -56,11 +64,7 @@ function Trainee() {
                     <Col className="pr-md-1" md="6">
                       <FormGroup>
                         <label>Email</label>
-                        <Input
-                          defaultValue="yid@gmail.com"
-                          placeholder="email"
-                          type="text"
-                        />
+                        <Input placeholder="email" type="text" />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -69,14 +73,13 @@ function Trainee() {
                       <FormGroup>
                         <label>Public Address</label>
                         <Input
-                          defaultValue="0x390f0f9fk930kf39k3mfe9"
-                          placeholder="Home Address"
+                          placeholder="0x390f0f9fk930kf39k3mfe9"
                           type="text"
                         />
                       </FormGroup>
                     </Col>
                   </Row>
-                  <Row>
+                  {/* <Row>
                     <Col className="pr-md-1" md="4">
                       <FormGroup>
                         <label>Private Key(to be changed)</label>
@@ -87,16 +90,12 @@ function Trainee() {
                         />
                       </FormGroup>
                     </Col>
-                  </Row>
+                  </Row> */}
                   <Row>
                     <Col className="pr-md-1" md="4">
                       <FormGroup>
                         <label>Asset-ID</label>
-                        <Input
-                          defaultValue="8594322"
-                          placeholder="Asset-ID"
-                          type="text"
-                        />
+                        <Input placeholder="8594322" type="text" />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -104,7 +103,7 @@ function Trainee() {
               </CardBody>
               <CardFooter>
                 <Button className="btn-fill" color="primary" type="submit">
-                  Opt-in
+                  Request Transfer
                 </Button>
               </CardFooter>
             </Card>

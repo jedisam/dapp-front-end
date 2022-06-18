@@ -22,7 +22,7 @@ function AddTraineeModal({ show, onHide }) {
   return (
     <Modal show={show}>
       <Modal.Header closeButton>
-        <Modal.Title>Tenx Training</Modal.Title>
+        <Modal.Title>Add Trainee</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
