@@ -27,6 +27,8 @@ function TraineeList({ trainees }) {
       .then((response) => response.json())
       .then(console.log);
     setLoading(false);
+    alert('Asset minted successfully!');
+    window.location.reload(true);
   };
 
   return trainees.map((trainee) => {
@@ -44,7 +46,7 @@ function TraineeList({ trainees }) {
               onClick={() => handleMint(trainee)}
             >
               {loading ? (
-                <Spinner type="border" color="sucess"  />
+                <Spinner type="border" color="sucess" />
               ) : (
                 trainee.mint
               )}

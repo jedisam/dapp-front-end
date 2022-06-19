@@ -20,6 +20,7 @@ function OptinList({ traineesOptin }) {
           alert(res.message);
         } else {
           alert('Request Accepted!');
+          window.location.reload(true);
         }
       });
   };
@@ -45,6 +46,7 @@ function OptinList({ traineesOptin }) {
       // Converting to JSON
       .then((response) => response.json())
       .then(console.log);
+    window.location.reload(false);
   };
   return traineesOptin.map((trainee) => {
     return (

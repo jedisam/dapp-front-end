@@ -17,8 +17,9 @@ function AddTraineeModal({ show, onHide }) {
       country,
       status,
     });
-
     onHide();
+    alert('Trainee added successfully!');
+    window.location.reload(true);
   };
   return (
     <Modal show={show}>

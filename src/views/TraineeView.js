@@ -47,6 +47,7 @@ function Trainee() {
           alert(res.message);
         } else {
           alert('Request Sent to Admin!');
+          window.location.reload(true);
         }
       });
   };
