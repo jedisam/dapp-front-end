@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 
 // reactstrap components
 import {
@@ -16,6 +16,41 @@ import {
 } from 'reactstrap';
 
 function Trainee() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [assetID, setAssetId] = useState('');
+
+  const handleSubmit = () => {
+    // console.log(name, email, address, assetID);
+    fetch('http://localhost:8000/api/v1/trainees/optin', {
+      // Adding method type
+      method: 'POST',
+
+      // Adding body or contents to send
+      body: JSON.stringify({
+        name,
+        email,
+        address,
+        asset_id: parseInt(assetID),
+      }),
+
+      // Adding headers to the request
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 'fail') {
+          console.log(res);
+          alert(res.message);
+        } else {
+          alert('Request Sent to Admin!');
+        }
+      });
+  };
+
   return (
     <>
       <div className="content">
@@ -56,7 +91,11 @@ function Trainee() {
                     <Col className="pr-md-1" md="6">
                       <FormGroup>
                         <label>Full Name</label>
-                        <Input placeholder="your-full-name" type="text" />
+                        <Input
+                          placeholder="your-full-name"
+                          type="text"
+                          onChange={(e) => setName(e.target.value)}
+                        />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -64,7 +103,12 @@ function Trainee() {
                     <Col className="pr-md-1" md="6">
                       <FormGroup>
                         <label>Email</label>
-                        <Input placeholder="email" type="text" />
+
+                        <Input
+                          placeholder="email"
+                          type="text"
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -75,34 +119,33 @@ function Trainee() {
                         <Input
                           placeholder="0x390f0f9fk930kf39k3mfe9"
                           type="text"
+                          onChange={(e) => setAddress(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
                   </Row>
-                  {/* <Row>
-                    <Col className="pr-md-1" md="4">
-                      <FormGroup>
-                        <label>Private Key(to be changed)</label>
-                        <Input
-                          defaultValue="******************"
-                          placeholder="Private Key"
-                          type="password"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row> */}
                   <Row>
                     <Col className="pr-md-1" md="4">
                       <FormGroup>
                         <label>Asset-ID</label>
-                        <Input placeholder="8594322" type="text" />
+
+                        <Input
+                          placeholder="8594322"
+                          type="text"
+                          onChange={(e) => setAssetId(e.target.value)}
+                        />
                       </FormGroup>
                     </Col>
                   </Row>
                 </Form>
               </CardBody>
               <CardFooter>
-                <Button className="btn-fill" color="primary" type="submit">
+                <Button
+                  className="btn-fill"
+                  color="primary"
+                  type="submit"
+                  onClick={handleSubmit}
+                >
                   Request Transfer
                 </Button>
               </CardFooter>

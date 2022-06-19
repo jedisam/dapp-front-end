@@ -17,6 +17,7 @@ function AddTraineeModal({ show, onHide }) {
       country,
       status,
     });
+
     onHide();
   };
   return (
