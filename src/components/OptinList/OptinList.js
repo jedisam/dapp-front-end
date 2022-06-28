@@ -1,13 +1,17 @@
-import { Button } from 'reactstrap';
+import { useState } from 'react';
+import { Button, Spinner } from 'reactstrap';
 
 function OptinList({ traineesOptin }) {
-  const handleAccept = ({ name, address, asset_id }) => {
-    fetch('http://localhost:8000/api/v1/nft/transfer', {
+  const [loading, setLoading] = useState(false);
+  const handleAccept = ({ name, address, asset_id, email }) => {
+    setLoading(true);
+    fetch('https://tenxdapp.herokuapp.com/api/v1/nft/transfer', {
       method: 'POST',
       body: JSON.stringify({
         name,
         address,
         asset_id,
+        email,
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -16,10 +20,13 @@ function OptinList({ traineesOptin }) {
       .then((res) => res.json())
       .then((res) => {
         if (res.status === 'fail') {
+          setLoading(false);
           console.log(res);
           alert(res.message);
         } else {
-          alert('Request Accepted!');
+          setLoading(true);
+          alert('Asset Transferred to trainee!');
+          alert('Asset Frozen!');
           window.location.reload(true);
         }
       });
@@ -27,8 +34,8 @@ function OptinList({ traineesOptin }) {
 
   const handleDecline = ({ name, address }) => {
     console.log(name, address);
-    // http://localhost:8000/api/v1/nft
-    fetch('http://localhost:8000/api/v1/trainees/optin', {
+    // https://tenxdapp.herokuapp.com/api/v1/nft
+    fetch('https://tenxdapp.herokuapp.com/api/v1/trainees/optin', {
       // Adding method type
       method: 'DELETE',
 
@@ -60,7 +67,7 @@ function OptinList({ traineesOptin }) {
             className="btn-success"
             onClick={() => handleAccept(trainee)}
           >
-            Accept
+            {loading ? <Spinner type="border" color="sucess" /> : 'Accept'}
           </Button>{' '}
           <Button
             variant="danger"

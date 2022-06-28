@@ -1,3 +1,5 @@
+/* global AlgoSigner */
+
 import { useState } from 'react';
 
 // reactstrap components
@@ -13,7 +15,9 @@ import {
   Input,
   Row,
   Col,
+  NavbarBrand,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 function Trainee() {
   const [name, setName] = useState('');
@@ -23,7 +27,7 @@ function Trainee() {
 
   const handleSubmit = () => {
     // console.log(name, email, address, assetID);
-    fetch('http://localhost:8000/api/v1/trainees/optin', {
+    fetch('https://tenxdapp.herokuapp.com/api/v1/trainees/optin', {
       // Adding method type
       method: 'POST',
 
@@ -59,16 +63,37 @@ function Trainee() {
           <Col md="8">
             <Card>
               <CardHeader>
-                <h5 className="title">Tenx System</h5>
+                <h5 className="title">
+                  <NavbarBrand
+                    data-placement="bottom"
+                    to="/"
+                    // target="_blank"
+                    title="TENXDAPP"
+                    tag={Link}
+                  >
+                    Tenx System
+                  </NavbarBrand>
+                </h5>
               </CardHeader>
               <CardBody>
                 {/* Add a description text */}
                 <p>
-                  Please optin the asset using the{' '}
+                  PLEASE OPTIN THE ASSET USING THE{' '}
                   <a href="https://chrome.google.com/webstore/detail/algosigner/kmmolakhbgdlpkjkcjkebenjheonagdm">
                     algosign
                   </a>{' '}
-                  chrome extension once you get your asset-ID
+                  CHROME EXTENSION ONCE YOU GET YOUR ASSET-ID:
+                </p>
+                <p>
+                  Follow the{' '}
+                  <a
+                    href="https://docs.google.com/document/d/1tRCaUCENfqjJChW74d-9ggr2ocQZrJxig4YdvOPij-Q/edit?usp=sharing"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    following
+                  </a>{' '}
+                  step by step guide to opt-in.
                 </p>
                 <p>
                   Once you optin for the asset, please fill up the form below

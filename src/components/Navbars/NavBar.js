@@ -56,7 +56,7 @@ function NavB() {
             data-placement="bottom"
             to="/"
             // target="_blank"
-            title="Coded by Creative Tim"
+            title="TENXDAPP"
             tag={Link}
           >
             Ten Academy
