@@ -12,7 +12,7 @@ function TraineeList({ trainees, account }) {
   const connectAlgo = async () => {
     try {
       const r = await AlgoSigner.connect();
-      alert(JSON.stringify(r, null, 2));
+      // alert(JSON.stringify(r, null, 2));
       return JSON.stringify(r, null, 2);
     } catch (e) {
       console.error(e);
@@ -30,7 +30,7 @@ function TraineeList({ trainees, account }) {
     }
   };
   const mintTx = async (txId, name, email) => {
-    let txConf = await fetch('http://localhost:8000/api/v2/nft/send', {
+    let txConf = await fetch('https://tenxdapp.herokuapp.com/api/v2/nft/send', {
       // Adding method type
       method: 'POST',
 
@@ -68,7 +68,7 @@ function TraineeList({ trainees, account }) {
     // https://tenxdapp.herokuapp.com/api/v1/nft
 
     // process.exit();
-    const data = await fetch('http://localhost:8000/api/v2/nft', {
+    const data = await fetch('https://tenxdapp.herokuapp.com/api/v2/nft', {
       // Adding method type
       method: 'POST',
 
@@ -89,6 +89,7 @@ function TraineeList({ trainees, account }) {
     if (res.status === 'fail') {
       console.log(res);
       alert(res.message);
+      return;
     } else {
       console.log(res);
       const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({
@@ -98,7 +99,7 @@ function TraineeList({ trainees, account }) {
       const signedTxs = await AlgoSigner.signTxn([{ txn: txn_b64 }]);
       console.log(signedTxs);
       // process.exit(1);
-      alert(JSON.stringify(signedTxs, null, 2));
+      // alert(JSON.stringify(signedTxs, null, 2));
       alert('successfully signed transaction!');
       const tx = await AlgoSigner.send({
         ledger: 'TestNet',

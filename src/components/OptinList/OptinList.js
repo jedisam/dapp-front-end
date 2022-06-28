@@ -1,35 +1,79 @@
+/* global AlgoSigner */
+
 import { useState } from 'react';
 import { Button, Spinner } from 'reactstrap';
+import algosdk from 'algosdk';
 
-function OptinList({ traineesOptin }) {
+function OptinList({ traineesOptin, adminAddress }) {
+  // alert(adminAddress);
   const [loading, setLoading] = useState(false);
-  const handleAccept = ({ name, address, asset_id, email }) => {
+
+  const transferTx = async (txId, name, email, assetID) => {
+    let txConf = await fetch(
+      'https://tenxdapp.herokuapp.com/api/v2/nft/transferVerify',
+      {
+        // Adding method type
+        method: 'POST',
+
+        // Adding body or contents to send
+        body: JSON.stringify({
+          txId,
+          name,
+          email,
+          asset_id: assetID,
+        }),
+
+        // Adding headers to the request
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      }
+    );
+
+    txConf = await txConf.json();
+    console.log(txConf);
+  };
+
+  const handleAccept = async ({ name, address, asset_id, email }) => {
+    if (adminAddress === '') {
+      alert('Please select an account before transferring an asset!');
+      return;
+    }
     setLoading(true);
-    fetch('https://tenxdapp.herokuapp.com/api/v1/nft/transfer', {
-      method: 'POST',
-      body: JSON.stringify({
-        name,
-        address,
-        asset_id,
-        email,
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.status === 'fail') {
-          setLoading(false);
-          console.log(res);
-          alert(res.message);
-        } else {
-          setLoading(true);
-          alert('Asset Transferred to trainee!');
-          alert('Asset Frozen!');
-          window.location.reload(true);
-        }
-      });
+    // fetch('https://tenxdapp.herokuapp.com/api/v1/nft/transfer', {
+    let res = await fetch(
+      'https://tenxdapp.herokuapp.com/api/v2/nft/transfer',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          address: adminAddress,
+          address2: address,
+          asset_id,
+          email,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      }
+    );
+    res = await res.json();
+    console.log(res);
+    const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+      ...res.txnObj,
+    });
+    // Use the AlgoSigner encoding library to make the transactions base64
+    const txn_b64 = await AlgoSigner.encoding.msgpackToBase64(txn.toByte());
+    const signedTxs = await AlgoSigner.signTxn([{ txn: txn_b64 }]);
+    // alert(JSON.stringify(signedTxs, null, 2));
+    alert('successfully signed transaction!');
+    const tx = await AlgoSigner.send({
+      ledger: 'TestNet',
+      tx: signedTxs[0].blob,
+    });
+    await transferTx(tx.txId, name, email, asset_id);
+    alert('Asset Transferred to trainee!');
+    alert('Asset Frozen!');
+    window.location.reload(true);
   };
 
   const handleDecline = ({ name, address }) => {
@@ -53,7 +97,7 @@ function OptinList({ traineesOptin }) {
       // Converting to JSON
       .then((response) => response.json())
       .then(console.log);
-    window.location.reload(false);
+    // window.location.reload(false);
   };
   return traineesOptin.map((trainee) => {
     return (

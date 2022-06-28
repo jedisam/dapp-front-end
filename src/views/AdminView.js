@@ -155,7 +155,7 @@ function Tables() {
                     </tr>
                   </thead>
                   <tbody>
-                    <OptinList traineesOptin={optins} />
+                    <OptinList traineesOptin={optins} adminAddress={account} />
                   </tbody>
                 </Table>
               </CardBody>

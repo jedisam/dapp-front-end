@@ -1,6 +1,6 @@
 /* global AlgoSigner */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // reactstrap components
 import {
@@ -16,18 +16,87 @@ import {
   Row,
   Col,
   NavbarBrand,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+
+import algosdk from 'algosdk';
 
 function Trainee() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
   const [assetID, setAssetId] = useState('');
+  const [accounts, setAccounts] = useState([]);
+  const [account, setAccount] = useState('');
+  const [dropDown, setDropDown] = useState(false);
 
-  const handleSubmit = () => {
+  useEffect(() => {
+    getAccounts();
+  }, []);
+  const AccountList = () => {
+    return accounts.map((account) => {
+      return (
+        <DropdownItem
+          key={account.address}
+          onClick={(e) => {
+            setAccount(e.target.innerHTML);
+          }}
+        >
+          {account.address}
+        </DropdownItem>
+      );
+    });
+  };
+  const getAccounts = async () => {
+    await AlgoSigner.connect();
+    await AlgoSigner.accounts({
+      ledger: 'TestNet',
+    })
+      .then((d) => {
+        setAccounts(d);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+  const toggle = () => {
+    setDropDown(!dropDown);
+  };
+
+  const optinTx = async (txId) => {
+    let txConf = await fetch('https://tenxdapp.herokuapp.com/api/v2/nft/opt', {
+      // Adding method type
+      method: 'POST',
+
+      // Adding body or contents to send
+      body: JSON.stringify({
+        txId,
+        name,
+        email,
+        address: account,
+        asset_id: assetID,
+      }),
+
+      // Adding headers to the request
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    });
+
+    txConf = await txConf.json();
+    console.log(txConf);
+  };
+  const handleOptin = async () => {
     // console.log(name, email, address, assetID);
-    fetch('https://tenxdapp.herokuapp.com/api/v1/trainees/optin', {
+    // fetch('https://tenxdapp.herokuapp.com/api/v/trainees/optin', {
+    if (account === '') {
+      alert('Please select an account before opting in for an asset!');
+      return;
+    }
+    let res = await fetch('https://tenxdapp.herokuapp.com/api/v2/nft/optin', {
       // Adding method type
       method: 'POST',
 
@@ -35,7 +104,7 @@ function Trainee() {
       body: JSON.stringify({
         name,
         email,
-        address,
+        address: account,
         asset_id: parseInt(assetID),
       }),
 
@@ -43,17 +112,37 @@ function Trainee() {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.status === 'fail') {
-          console.log(res);
-          alert(res.message);
-        } else {
-          alert('Request Sent to Admin!');
-          window.location.reload(true);
-        }
-      });
+    });
+    res = await res.json();
+    if (res.status === 'fail') {
+      alert('something happened...');
+      return;
+    }
+    console.log(res);
+    const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+      ...res.tnxObj,
+    });
+    // Use the AlgoSigner encoding library to make the transactions base64
+    const txn_b64 = await AlgoSigner.encoding.msgpackToBase64(txn.toByte());
+    const signedTxs = await AlgoSigner.signTxn([{ txn: txn_b64 }]);
+    // alert(JSON.stringify(signedTxs, null, 2));
+    alert('successfully signed transaction!');
+    const tx = await AlgoSigner.send({
+      ledger: 'TestNet',
+      tx: signedTxs[0].blob,
+    });
+
+    await optinTx(tx.txId);
+    // .then((res) => res.json())
+    // .then((res) => {
+    //   if (res.status === 'fail') {
+    //     console.log(res);
+    //     alert(res.message);
+    //   } else {
+    //     alert('Request Sent to Admin!');
+    //     window.location.reload(true);
+    //   }
+    // });
   };
 
   return (
@@ -74,7 +163,16 @@ function Trainee() {
                     Tenx System
                   </NavbarBrand>
                 </h5>
+                <Dropdown isOpen={dropDown} toggle={toggle}>
+                  <DropdownToggle variant="success" id="dropdown-basic">
+                    {account === '' ? 'Select Algo Account' : account}
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <AccountList />
+                  </DropdownMenu>
+                </Dropdown>
               </CardHeader>
+
               <CardBody>
                 {/* Add a description text */}
                 <p>
@@ -138,7 +236,7 @@ function Trainee() {
                       </FormGroup>
                     </Col>
                   </Row>
-                  <Row>
+                  {/* <Row>
                     <Col md="6">
                       <FormGroup>
                         <label>Public Address</label>
@@ -149,7 +247,7 @@ function Trainee() {
                         />
                       </FormGroup>
                     </Col>
-                  </Row>
+                  </Row> */}
                   <Row>
                     <Col className="pr-md-1" md="4">
                       <FormGroup>
@@ -170,9 +268,9 @@ function Trainee() {
                   className="btn-fill"
                   color="primary"
                   type="submit"
-                  onClick={handleSubmit}
+                  onClick={handleOptin}
                 >
-                  Request Transfer
+                  Opt-in
                 </Button>
               </CardFooter>
             </Card>
