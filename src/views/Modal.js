@@ -11,7 +11,7 @@ function AddTraineeModal({ show, onHide }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(name, country, email, status);
-    await axios.post('http://localhost:8000/api/v1/trainees', {
+    await axios.post('https://tenxdapp.herokuapp.com/api/v1/trainees', {
       name,
       email,
       country,

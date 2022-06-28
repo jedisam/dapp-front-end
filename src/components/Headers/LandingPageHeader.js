@@ -40,7 +40,7 @@ function LandingPageHeader() {
             <h3>Learn and get your signed certificate</h3>
             <br />
             <Button
-              href="http://localhost:3000/admin"
+              href="/admin"
               className="btn-round mr-1"
               color="neutral"
               // target="_blank"
