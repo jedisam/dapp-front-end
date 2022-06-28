@@ -8,7 +8,6 @@ import 'assets/scss/paper-kit.scss?v=1.3.0';
 import 'assets/demo/demo.css?v=1.3.0';
 // pages
 import LandingPage from 'views/LandingPage.js';
-import AlgoCheck from 'views/AlgoCheck.js';
 import AdminView from 'views/AdminView';
 import Typography from 'views/Typography.js';
 import TraineeView from 'views/TraineeView';
@@ -21,7 +20,6 @@ ReactDOM.render(
       <Route path="/" element={<LandingPage />} />
       <Route path="/admin" element={<AdminView />} />
       <Route path="/trainee" element={<TraineeView />} />
-      <Route path="/Algo" element={<AlgoCheck />} />
       <Route path="/typo" element={<Typography />} />
 
       {/* <Route
